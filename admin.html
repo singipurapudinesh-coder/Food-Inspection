@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+
+Admin Dashboard
+
+</title>
+
+<link
+
+rel="stylesheet"
+
+href="{{ url_for('static',filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+
+🏆 Admin Dashboard
+
+</h1>
+
+
+<div class="cards">
+
+<div class="card">
+
+Users
+
+<h2>
+
+{{ admin.users }}
+
+</h2>
+
+</div>
+
+
+<div class="card">
+
+Inspections
+
+<h2>
+
+{{ admin.inspections }}
+
+</h2>
+
+</div>
+
+
+<div class="card">
+
+Healthy
+
+<h2>
+
+{{ admin.healthy }}
+
+</h2>
+
+</div>
+
+
+<div class="card">
+
+Unhealthy
+
+<h2>
+
+{{ admin.unhealthy }}
+
+</h2>
+
+</div>
+
+</div>
+
+
+<h2>
+
+Recent Activity
+
+</h2>
+
+
+<table>
+
+<tr>
+
+<th>
+
+Food
+
+</th>
+
+
+<th>
+
+Score
+
+</th>
+
+
+<th>
+
+Status
+
+</th>
+
+</tr>
+
+
+{% for row in admin.recent %}
+
+<tr>
+
+<td>
+
+{{ row.food_name }}
+
+</td>
+
+
+<td>
+
+{{ row.health_score }}
+
+</td>
+
+
+<td>
+
+{{ row.healthy_status }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+<a href="/dashboard">
+
+Back
+
+</a>
+
+</div>
+
+</body>
+
+</html>

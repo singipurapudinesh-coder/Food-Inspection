@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+
+Food Inspection
+
+</title>
+
+<link
+
+rel="stylesheet"
+
+href="{{ url_for('static',filename='css/style.css') }}">
+
+<script
+
+src="{{ url_for('static',filename='js/voice.js') }}">
+
+</script>
+
+<script
+
+src="{{ url_for('static',filename='js/webcam.js') }}">
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+
+🍲 AI Food Inspection
+
+</h1>
+
+
+<form
+
+action="/inspect"
+
+method="POST"
+
+enctype="multipart/form-data">
+
+
+<label>
+
+Inspection Mode
+
+</label>
+
+
+<select name="mode">
+
+<option>
+
+OFF
+
+</option>
+
+
+<option>
+
+ON
+
+</option>
+
+</select>
+
+
+<input
+
+id="prompt"
+
+type="text"
+
+name="prompt"
+
+placeholder="Enter Prompt"
+
+required>
+
+
+<button
+
+type="button"
+
+onclick="startVoice()">
+
+🎤 Voice Input
+
+</button>
+
+
+<input
+
+type="file"
+
+name="image"
+
+accept="image/*"
+
+required>
+
+
+<video
+
+id="camera"
+
+width="400"
+
+height="300"
+
+autoplay
+
+playsinline>
+
+</video>
+
+
+<button
+
+type="button"
+
+onclick="startCamera()">
+
+📷 Start Camera
+
+</button>
+
+<button>
+
+Inspect Food
+
+</button>
+
+</form>
+
+
+{% if mode=="ON" %}
+
+<h2>
+
+✅ Inspection Mode is ON
+
+</h2>
+
+{% endif %}
+
+
+{% if result %}
+
+<div class="report">
+
+<h2>
+
+{{ result.food_name }}
+
+</h2>
+
+
+<h3>
+
+{{ result.healthy_status }}
+
+</h3>
+
+
+<h3>
+
+Health Score
+
+{{ result.health_score }}/100
+
+</h3>
+
+
+<h3>
+
+Calories
+
+{{ result.calories }}
+
+kcal
+
+</h3>
+
+
+<h3>
+
+Protein
+
+{{ result.protein }} g
+
+</h3>
+
+
+<h3>
+
+Fat
+
+{{ result.fat }} g
+
+</h3>
+
+
+<h3>
+
+Carbohydrates
+
+{{ result.carbohydrates }} g
+
+</h3>
+
+
+<h3>
+
+Food Freshness
+
+</h3>
+
+<p>
+
+{{ result.freshness }}
+
+</p>
+
+
+<h3>
+
+Temperature Risk
+
+</h3>
+
+<p>
+
+{{ result.temperature_risk }}
+
+</p>
+
+
+<h3>
+
+Advantages
+
+</h3>
+
+<ul>
+
+{% for item in result.advantages %}
+
+<li>
+
+{{ item }}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+
+<h3>
+
+Disadvantages
+
+</h3>
+
+<ul>
+
+{% for item in result.disadvantages %}
+
+<li>
+
+{{ item }}
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+
+<h3>
+
+Recommendation
+
+</h3>
+
+<p>
+
+{{ result.recommendation }}
+
+</p>
+
+
+<h3>
+
+Summary
+
+</h3>
+
+<p>
+
+{{ result.summary }}
+
+</p>
+
+
+<a href="/download">
+
+📄 Download PDF
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+
+</html>
